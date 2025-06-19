@@ -1,11 +1,413 @@
-<!DOCTYPE html>
-<html lang="uk">
-<head>
-    <meta charset="UTF-8">
-    <title>{{ title }}</title>
-</head>
-<body>
-    <h1>{{ title }}</h1>
-    <a href="{% url 'index' %}">На головну</a>
-</body>
-</html>
+
+{# templates/jewelery/cart_detail.html #}
+{#{% extends 'jewelery/layout.html' %} {# Успадковуємо від вашого layout.html #}
+{##}
+{#{% block title %}Ваш Кошик - SIRIUS{% endblock %}#}
+{##}
+{#{% block content %}#}
+{#<div class="container cart-detail-container mt-5">#}
+{#    <h1 class="mb-4 text-center">Ваш Кошик</h1>#}
+{##}
+{#    {% if cart %}#}
+{#        <div class="table-responsive">#}
+{#            <table class="table table-hover align-middle cart-table">#}
+{#                <thead>#}
+{#                    <tr>#}
+{#                        <th scope="col">Товар</th>#}
+{#                        <th scope="col">Кількість</th>#}
+{#                        <th scope="col">Ціна</th>#}
+{#                        <th scope="col">Загалом</th>#}
+{#                        <th scope="col"></th> {# Для кнопки видалення #}
+{#                    </tr>#}
+{#                </thead>#}
+{#                <tbody>#}
+{#                    {% for item in cart %}#}
+{#                        <tr>#}
+{#                            <td class="product-info">#}
+{##}
+{#                                <a href="{% url 'product_detail' item.product.id %}" class="text-decoration-none text-dark fw-bold">{{ item.product.name }}</a>#}
+{#                            </td>#}
+{#                            <td>#}
+{#                                <form action="{% url 'cart_detail' %}" method="post" class="d-flex align-items-center">#}
+{#                                    {% csrf_token %}#}
+{#                                    <input type="number" name="quantity" value="{{ item.quantity }}" min="1" class="form-control quantity-input me-2">#}
+{#                                    <input type="hidden" name="update" value="true">#}
+{#                                    <button type="submit" class="btn btn-outline-primary btn-sm update-btn" title="Оновити кількість"><i class="fas fa-sync-alt"></i></button>#}
+{#                                </form>#}
+{#                            </td>#}
+{#                            <td>{{ item.price|floatformat:2 }} грн</td>#}
+{#                            <td>{{ item.total_price|floatformat:2 }} грн</td>#}
+{#                            <td>#}
+{#                                <form action="{% url 'cart_remove' item.product.id %}" method="post">#}
+{#                                    {% csrf_token %}#}
+{#                                    <button type="submit" class="btn btn-outline-danger btn-sm remove-btn" title="Видалити з кошика"><i class="fas fa-trash-alt"></i></button>#}
+{#                                </form>#}
+{#                            </td>#}
+{#                        </tr>#}
+{#                    {% endfor %}#}
+{#                </tbody>#}
+{#                <tfoot>#}
+{#                    <tr class="fw-bold">#}
+{#                        <td colspan="3" class="text-end">Загальна сума:</td>#}
+{#                        <td>{{ cart.get_total_price|floatformat:2 }} грн</td>#}
+{#                        <td></td>#}
+{#                    </tr>#}
+{#                </tfoot>#}
+{#            </table>#}
+{#        </div>#}
+{##}
+{#        <div class="d-flex justify-content-between mt-4">#}
+{#            <a href="{% url 'product_list' %}" class="btn btn-secondary">Продовжити покупки</a>#}
+{#            <a href="{% url 'order_create' %}" class="btn btn-primary">Оформити замовлення</a>#}
+{#        </div>#}
+{##}
+{#    {% else %}#}
+{#        <div class="text-center py-5">#}
+{#            <p class="lead text-muted mb-4">Ваш кошик порожній.</p>#}
+{#            <a href="{% url 'product_list' %}" class="btn btn-primary btn-lg">Перейти до каталогу</a>#}
+{#        </div>#}
+{#    {% endif %}#}
+{#</div>#}
+{#   <style>#}
+{##}
+{#.cart-detail-container {#}
+{#    padding-top: 40px;#}
+{#    padding-bottom: 60px;#}
+{#    background-color: #fcf8f9; /* Світлий фон */#}
+{#    font-family: 'Montserrat', sans-serif;#}
+{#    min-height: calc(100vh - 180px); /* Щоб футер не "підстрибував" на коротких сторінках */#}
+{#}#}
+{##}
+{#.cart-detail-container h1 {#}
+{#    color: #cc6699;#}
+{#    font-weight: 700;#}
+{#    margin-bottom: 40px;#}
+{#}#}
+{##}
+{#.cart-table th {#}
+{#    background-color: #f2e2ea; /* Світло-рожевий фон для заголовків таблиці */#}
+{#    color: #862d59;#}
+{#    font-weight: 700;#}
+{#    text-align: center;#}
+{#}#}
+{##}
+{#.cart-table td {#}
+{#    vertical-align: middle; /* Вирівнювання вмісту комірок по центру */#}
+{#    text-align: center;#}
+{#}#}
+{##}
+{#.cart-table .product-info {#}
+{#    display: flex;#}
+{#    align-items: center;#}
+{#    justify-content: flex-start; /* Вирівнювання інформації про продукт зліва */#}
+{#    text-align: left;#}
+{#}#}
+{##}
+{#.cart-item-image {#}
+{#    width: 80px; /* Розмір мініатюри зображення товару */#}
+{#    height: 80px;#}
+{#    object-fit: cover;#}
+{#    border: 1px solid #e0c2d1;#}
+{#    border-radius: 5px;#}
+{#}#}
+{##}
+{#.cart-table .quantity-input {#}
+{#    width: 70px; /* Ширина поля для кількості */#}
+{#    text-align: center;#}
+{#}#}
+{##}
+{#.cart-table .btn-outline-primary {#}
+{#    color: #cc6699;#}
+{#    border-color: #cc6699;#}
+{#}#}
+{#.cart-table .btn-outline-primary:hover {#}
+{#    background-color: #cc6699;#}
+{#    color: white;#}
+{#}#}
+{##}
+{#.cart-table .btn-outline-danger {#}
+{#    color: #dc3545;#}
+{#    border-color: #dc3545;#}
+{#}#}
+{#.cart-table .btn-outline-danger:hover {#}
+{#    background-color: #dc3545;#}
+{#    color: white;#}
+{#}#}
+{##}
+{#.cart-table tfoot {#}
+{#    border-top: 2px solid #cc6699;#}
+{#    font-size: 1.2rem;#}
+{#}#}
+{##}
+{#.cart-table tfoot td {#}
+{#    padding-top: 15px;#}
+{#    padding-bottom: 15px;#}
+{#    color: #862d59;#}
+{#}#}
+{##}
+{#/* Кнопки під таблицею кошика */#}
+{#.cart-detail-container .btn-secondary {#}
+{#    background-color: #6c757d;#}
+{#    border-color: #6c757d;#}
+{#    color: white;#}
+{#    font-weight: bold;#}
+{#}#}
+{#.cart-detail-container .btn-secondary:hover {#}
+{#    background-color: #5a6268;#}
+{#    border-color: #545b62;#}
+{#}#}
+{##}
+{#.cart-detail-container .btn-primary {#}
+{#    background-color: #cc6699;#}
+{#    border-color: #cc6699;#}
+{#    font-weight: bold;#}
+{#}#}
+{#.cart-detail-container .btn-primary:hover {#}
+{#    background-color: #862d59;#}
+{#    border-color: #862d59;#}
+{#}#}
+{##}
+{#.cart-detail-container .lead.text-muted {#}
+{#    font-size: 1.25rem;#}
+{#    color: #6c757d !important;#}
+{#}#}
+{##}
+{#.cart-detail-container .btn-lg {#}
+{#    padding: 12px 30px;#}
+{#    font-size: 1.25rem;#}
+{#    border-radius: 8px;#}
+{#}#}
+{#</style>#}
+{#    {% if cart_items %}#}
+{#    <div class="table-responsive mb-4">#}
+{#        <table class="table table-bordered table-striped align-middle">#}
+{#            <thead class="table-light">#}
+{#                <tr>#}
+{#                    <th>Товар</th>#}
+{#                    <th class="text-center">Кількість</th>#}
+{#                    <th class="text-end">Ціна за одиницю</th>#}
+{#                    <th class="text-end">Загальна вартість</th>#}
+{#                    <th class="text-center">Дії</th>#}
+{#                </tr>#}
+{#            </thead>#}
+{#            <tbody>#}
+{#                {% for item in cart_items %}#}
+{#                <tr>#}
+{#                    <td>#}
+{#                        <div class="d-flex align-items-center">#}
+{#                            <img src="{% if item.product.image %}{{ item.product.image.url }}{% else %}https://via.placeholder.com/50x50?text=No+Image{% endif %}" alt="{{ item.product.name }}" class="img-thumbnail me-2" style="width: 50px; height: 50px; object-fit: contain;">#}
+{#                            <a href="{{ item.product.get_absolute_url }}">{{ item.product.name }}</a>#}
+{#                        </div>#}
+{#                    </td>#}
+{#                    <td class="text-center">#}
+{#                        <form action="{% url 'cart_add' item.product.id %}" method="post" class="d-inline-flex align-items-center">#}
+{#                            {% csrf_token %}#}
+{#                            {{ item.update_quantity_form.quantity }}#}
+{#                            {{ item.update_quantity_form.override }} {# Це приховане поле override має бути True #}
+{#                            <button type="submit" class="btn btn-sm btn-outline-secondary ms-2" title="Оновити кількість"><i class="fas fa-sync-alt"></i></button>#}
+{#                        </form>#}
+{#                    </td>#}
+{#                    <td class="text-end">{{ item.price }} грн</td>#}
+{#                    <td class="text-end">{{ item.get_total_item_price }} грн</td>#}
+{#                    <td class="text-center">#}
+{#                        <form action="{% url 'cart_remove' item.product.id %}" method="post" class="d-inline">#}
+{#                            {% csrf_token %}#}
+{#                            <button type="submit" class="btn btn-danger btn-sm" title="Видалити"><i class="fas fa-trash-alt"></i></button>#}
+{#                        </form>#}
+{#                    </td>#}
+{#                </tr>#}
+{#                {% endfor %}#}
+{#            </tbody>#}
+{#            <tfoot>#}
+{#                <tr>#}
+{#                    <th colspan="3" class="text-end">Загальна сума:</th>#}
+{#                    <td class="text-end"><strong>{{ cart.get_total_price }} грн</strong></td>#}
+{#                    <td></td>#}
+{#                </tr>#}
+{#            </tfoot>#}
+{#        </table>#}
+{#    </div>#}
+{##}
+{#    <div class="text-center">#}
+{#        <a href="{% url 'product_list' %}" class="btn btn-outline-primary me-3">Продовжити покупки</a>#}
+{#        <a href="{% url 'order_create' %}" class="btn btn-success">Оформити замовлення</a>#}
+{#    </div>#}
+{#{% else %}#}
+{#    <div class="alert alert-info text-center" role="alert">#}
+{#        Ваш кошик порожній. <a href="{% url 'product_list' %}" class="alert-link">Почніть покупки прямо зараз!</a>#}
+{#    </div>#}
+{#{% endif %}#}
+{##}
+{#{% endblock %}#}
+{##}
+{#{% include 'header.html' %}#}
+{#{% include 'footer.html' %}#}
+
+{% extends 'jewelery/layout.html' %}
+{% load static %}
+
+{% block title %}Ваш Кошик - SIRIUS{% endblock %}
+
+{% block content %}
+
+<div class="container cart-detail-container mt-5">
+    <h1 class="mb-4 text-center">Ваш Кошик</h1>
+
+    {% if cart_items %}
+        <div class="table-responsive mb-4">
+            <table class="table table-bordered table-striped align-middle cart-table">
+                <thead class="table-light">
+                    <tr>
+                        <th>Товар</th>
+                        <th class="text-center">Кількість</th>
+                        <th class="text-end">Ціна за одиницю</th>
+                        <th class="text-end">Загальна вартість</th>
+                        <th class="text-center">Дії</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in cart_items %}
+                    <tr>
+                        <td class="product-info">
+                            <div class="d-flex align-items-center">
+                                <img src="{% if item.product.image %}{{ item.product.image.url }}{% else %}{% static 'img/rings.jpg' %}{% endif %}" alt="{{ item.product.name }}" class="cart-item-image me-2">
+                                <a href="{% url 'product_detail' item.product.id %}" class="text-decoration-none text-dark fw-bold">{{ item.product.name }}</a>
+                            </div>
+                        </td>
+                        <td class="text-center">
+                            <form action="{% url 'add_to_cart' item.product.id %}" method="post" class="d-inline-flex align-items-center">
+                                {% csrf_token %}
+                                <input type="number" name="quantity" value="{{ item.quantity }}" min="1" class="form-control quantity-input me-2">
+                                <input type="hidden" name="override" value="true">
+
+                                <button type="submit" class="btn btn-sm btn-outline-primary ms-2"><i class="fas fa-sync-alt"></i></button>
+                            </form>
+                        </td>
+                        <td class="text-end">{{ item.price_at_addition|floatformat:2 }} грн</td>
+                        <td class="text-end">{{ item.get_total_item_price|floatformat:2 }} грн</td>
+                        <td class="text-center">
+                            <form action="{% url 'remove_from_cart' item.id %}" method="post">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-outline-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                <tfoot>
+                    <tr class="fw-bold">
+                        <td colspan="3" class="text-end">Загальна сума:</td>
+                        <td class="text-end">{{ cart.get_total_price|floatformat:2 }} грн</td>
+                        <td></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+
+        <div class="text-center">
+            <a href="{% url 'product_list' %}" class="btn btn-outline-primary me-3">Продовжити покупки</a>
+            <a href="{% url 'order_create' %}" class="btn btn-success">Оформити замовлення</a>
+        </div>
+    {% else %}
+        <div class="alert alert-info text-center py-5" role="alert">
+            Ваш кошик порожній. <a href="{% url 'product_list' %}" class="alert-link">Почніть покупки прямо зараз!</a>
+        </div>
+    {% endif %}
+</div>
+
+<style>
+/* CSS збережено без змін */
+.cart-detail-container {
+    padding-top: 40px;
+    padding-bottom: 60px;
+    background-color: #fcf8f9;
+    font-family: 'Montserrat', sans-serif;
+    min-height: calc(100vh - 180px);
+}
+.cart-detail-container h1 {
+    color: #cc6699;
+    font-weight: 700;
+    margin-bottom: 40px;
+}
+.cart-table th {
+    background-color: #f2e2ea;
+    color: #862d59;
+    font-weight: 700;
+    text-align: center;
+}
+.cart-table td {
+    vertical-align: middle;
+    text-align: center;
+}
+.cart-table .product-info {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: left;
+}
+.cart-item-image {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border: 1px solid #e0c2d1;
+    border-radius: 5px;
+}
+.cart-table .quantity-input {
+    width: 70px;
+    text-align: center;
+}
+.cart-table .btn-outline-primary {
+    color: #cc6699;
+    border-color: #cc6699;
+}
+.cart-table .btn-outline-primary:hover {
+    background-color: #cc6699;
+    color: white;
+}
+.cart-table .btn-outline-danger {
+    color: #dc3545;
+    border-color: #dc3545;
+}
+.cart-table .btn-outline-danger:hover {
+    background-color: #dc3545;
+    color: white;
+}
+.cart-table tfoot {
+    border-top: 2px solid #cc6699;
+    font-size: 1.2rem;
+}
+.cart-table tfoot td {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    color: #862d59;
+}
+.cart-detail-container .btn-secondary {
+    background-color: #6c757d;
+    border-color: #6c757d;
+    color: white;
+    font-weight: bold;
+}
+.cart-detail-container .btn-secondary:hover {
+    background-color: #5a6268;
+    border-color: #545b62;
+}
+.cart-detail-container .btn-primary {
+    background-color: #cc6699;
+    border-color: #cc6699;
+    font-weight: bold;
+}
+.cart-detail-container .btn-primary:hover {
+    background-color: #862d59;
+    border-color: #862d59;
+}
+.cart-detail-container .lead.text-muted {
+    font-size: 1.25rem;
+    color: #6c757d !important;
+}
+.cart-detail-container .btn-lg {
+    padding: 12px 30px;
+    font-size: 1.25rem;
+    border-radius: 8px;
+}
+</style>
+{% endblock %}

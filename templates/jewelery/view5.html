@@ -1,11 +1,77 @@
-<!DOCTYPE html>
-<html lang="uk">
-<head>
-    <meta charset="UTF-8">
-    <title>{{ title }}</title>
-</head>
-<body>
-    <h1>{{ title }}</h1>
-    <a href="{% url 'index' %}">На головну</a>
-</body>
-</html>
+{# templates/jewelery/user_profile.html #}
+{% extends 'jewelery/layout.html' %}
+
+{% block title %}Профіль користувача - {{ user.username }}{% endblock %}
+
+{% block content %}
+<div class="container user-profile-container mt-5">
+    <h1 class="mb-4 text-center">Профіль користувача</h1>
+
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm mb-4">
+                <div class="card-header text-center">
+                    <h4 class="mb-0 card-title-custom">Дані профілю</h4>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><strong>Ім'я користувача:</strong> {{ user.username }}</li>
+                        {% if user.first_name %}
+                            <li class="list-group-item"><strong>Ім'я:</strong> {{ user.first_name }}</li>
+                        {% endif %}
+                        {% if user.last_name %}
+                            <li class="list-group-item"><strong>Прізвище:</strong> {{ user.last_name }}</li>
+                        {% endif %}
+                        <li class="list-group-item"><strong>Email:</strong> {{ user.email }}</li>
+                        {# Тут можна додати інші поля з CustomUser, якщо вони є (наприклад, phone_number) #}
+                        {# <li class="list-group-item"><strong>Телефон:</strong> {{ user.phone_number }}</li> #}
+                    </ul>
+                    <div class="mt-4 text-center">
+                        <a href="{% url 'edit_profile' %}" class="btn btn-outline-primary">Редагувати профіль</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card shadow-sm mb-4">
+                <div class="card-header text-center">
+                    <h4 class="mb-0 card-title-custom">Мої замовлення</h4>
+                </div>
+                <div class="card-body">
+                    {% if orders %}
+                        <div class="table-responsive">
+                            <table class="table table-hover text-center">
+                                <thead>
+                                    <tr>
+                                        <th>Номер замовлення</th>
+                                        <th>Дата</th>
+                                        <th>Загальна сума</th>
+                                        <th>Статус</th>
+                                        <th>Деталі</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for order in orders %}
+                                        <tr>
+                                            <td>{{ order.id }}</td>
+                                            <td>{{ order.created|date:"d.m.Y H:i" }}</td>
+                                            <td>{{ order.get_total_cost|floatformat:2 }} грн</td>
+                                            <td>{% if order.paid %}Оплачено{% else %}Очікує оплати{% endif %}</td>
+                                            <td><a href="{% url 'order_confirmation' order.id %}" class="btn btn-sm btn-info">Деталі</a></td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <p class="text-center text-muted">У вас ще немає замовлень.</p>
+                        <div class="text-center">
+                            <a href="{% url 'product_list' %}" class="btn btn-secondary">Почати покупки</a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

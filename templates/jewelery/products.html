@@ -1,0 +1,489 @@
+{#{% load static %}#}
+{#{% load i18n %} <!DOCTYPE html>#}
+{#<html lang="uk">#}
+{#<head>#}
+{#    <meta charset="UTF-8">#}
+{#    <meta name="viewport" content="width=device-width, initial-scale=1.0">#}
+{#    <title>{% block title %}Каталог Товарів - SIRIUS{% endblock %}</title>#}
+{#    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">#}
+{#    <link rel="stylesheet" href="{% static 'jewelery.css' %}">#}
+{#    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">#}
+{##}
+{#    <style>#}
+{#        /* Стилі для карток товарів */#}
+{#        .product-card {#}
+{#            border: 1px solid #dee2e6; /* Легка межа для карток */#}
+{#            border-radius: 0.375rem; /* Заокруглені кути */#}
+{#            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; /* Плавний ефект при наведенні */#}
+{#            height: 100%; /* Гарантуємо однакову висоту картки в рядку */#}
+{#        }#}
+{#        .product-card:hover {#}
+{#            transform: translateY(-5px); /* Зсув вгору при наведенні */#}
+{#            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15); /* Більша тінь */#}
+{#        }#}
+{#        .product-card img {#}
+{#            max-height: 200px; /* Обмеження висоти зображення */#}
+{#            object-fit: contain; /* Зберігаємо пропорції та поміщаємо зображення */#}
+{#            width: 100%; /* Розтягуємо зображення на всю ширину картки */#}
+{#            border-bottom: 1px solid #dee2e6; /* Роздільник між зображенням і текстом */#}
+{#            padding: 15px; /* Невеликий відступ всередині зображення */#}
+{#            background-color: #fff; /* Забезпечуємо білий фон для зображення, якщо воно прозоре */#}
+{#        }#}
+{#        .product-card .card-body {#}
+{#            display: flex;#}
+{#            flex-direction: column;#}
+{#            justify-content: space-between; /* Розтягуємо вміст, щоб кнопки були внизу */#}
+{#            flex-grow: 1; /* Дозволяємо тілу картки займати весь доступний простір */#}
+{#        }#}
+{#        .product-card .card-title {#}
+{#            font-size: 1.25rem;#}
+{#            font-weight: bold;#}
+{#            margin-bottom: 0.75rem;#}
+{#        }#}
+{#        .product-card .card-text {#}
+{#            font-size: 0.95rem;#}
+{#            color: #555;#}
+{#            margin-bottom: 1rem;#}
+{#            flex-grow: 1; /* Опис може займати більше місця */#}
+{#        }#}
+{#        .product-price {#}
+{#            font-size: 1.5rem;#}
+{#            font-weight: bold;#}
+{#            color: #28a745; /* Зелений колір для ціни */#}
+{#            margin-top: 1rem;#}
+{#        }#}
+{#        /* Стилі для форми "Додати в кошик" */#}
+{#        .quantity-input {#}
+{#            width: 70px; /* Ширина поля кількості */#}
+{#            margin-right: 5px;#}
+{#            text-align: center;#}
+{#        }#}
+{#        .product-actions {#}
+{#            display: flex;#}
+{#            align-items: center;#}
+{#            justify-content: space-between;#}
+{#            margin-top: 10px;#}
+{#        }#}
+{#        .btn-add-to-cart {#}
+{#            width: 100%; /* Кнопка на всю ширину */#}
+{#            /* Якщо ви хочете, щоб вона була в рядку з інпутом, видаліть width: 100% */#}
+{#        }#}
+{##}
+{#        /* Стилі для шапки */#}
+{#        header {#}
+{#            background-color: #cc6699; /* Ваш колір */#}
+{#            padding: 15px 20px;#}
+{#            color: #FFF0F5; /* Колір тексту */#}
+{#        }#}
+{#        .custom-text {#}
+{#            font-family: 'Montserrat', sans-serif;#}
+{#            color: #FFF0F5;#}
+{#        }#}
+{#        .footer-nav ul {#}
+{#            list-style: none;#}
+{#            margin: 0px;#}
+{#            padding: 0px;#}
+{#            display: flex;#}
+{#            gap: 40px;#}
+{#            justify-content: center;#}
+{#            font-family: 'Montserrat', sans-serif;#}
+{#        }#}
+{#        .footer-nav ul li a {#}
+{#            color: white;#}
+{#            text-decoration: none;#}
+{#            font-weight: bolder;#}
+{#            transition: color 0.2s ease-in-out;#}
+{#        }#}
+{#        .footer-nav ul li a:hover {#}
+{#            color: #862d59;#}
+{#            text-decoration: none;#}
+{#        }#}
+{##}
+{#        /* Стилі для повідомлень Django */#}
+{#        .messages-container {#}
+{#            position: fixed;#}
+{#            top: 70px; /* Відступ від верху, щоб не перекривати навігацію */#}
+{#            right: 20px;#}
+{#            z-index: 1050; /* Вище, ніж більшість елементів Bootstrap */#}
+{#            width: 300px; /* Фіксована ширина для повідомлень */#}
+{#        }#}
+{#        .message {#}
+{#            margin-bottom: 10px;#}
+{#            opacity: 0.95;#}
+{#            transition: opacity 0.5s ease-out;#}
+{#        }#}
+{#        .message.fade-out {#}
+{#            opacity: 0;#}
+{#        }#}
+{#    </style>#}
+{#</head>#}
+{#<body>#}
+{##}
+{#    <header>#}
+{#        <div style="text-align: center;">#}
+{#            <h1><p class="custom-text">SIRIUS</p></h1>#}
+{#            <h2><p class="custom-text">Ваше сяйво починається тут</p></h2>#}
+{#        </div>#}
+{##}
+{#        <h3>#}
+{#            <nav class="footer-nav">#}
+{#                <ul>#}
+{#                    <li><a href="{% url 'index' %}">Головна</a> </li>#}
+{#                    <li><a href="{% url 'product_list' %}">Каталог</a></li>#}
+{#                    <li><a href="{% url 'cart_detail' %}">Кошик</a></li>#}
+{#                    <li><a href="{% url 'order_create' %}">Замовлення</a></li>#}
+{#                    <li><a href="{% url 'user_profile' %}">User</a></li>#}
+{#                    <li><a href="{% url 'view3' %}">Про нас</a></li>#}
+{#                    <li><a href="{% url 'view4' %}">Necklace</a></li>#}
+{##}
+{##}
+{##}
+{#                </ul>#}
+{#            </nav>#}
+{#        </h3>#}
+{#    </header>#}
+{##}
+{#    <div class="messages-container">#}
+{#        {% if messages %}#}
+{#            {% for message in messages %}#}
+{#                <div class="alert alert-{{ message.tags }} message" role="alert">#}
+{#                    {{ message }}#}
+{#                </div>#}
+{#            {% endfor %}#}
+{#        {% endif %}#}
+{#    </div>#}
+{##}
+{#    <div class="container mt-5">#}
+{#        <h1 class="mb-4 text-center">Каталог Товарів</h1>#}
+{##}
+{#        {% if products %}#}
+{#            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">#}
+{#                {% for product in products %}#}
+{#                    <div class="col d-flex">#}
+{#                        <div class="card product-card">#}
+{#                            {% if product.image %}#}
+{#                                <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">#}
+{#                            {% else %}#}
+{#                                <img src="{% static 'img/bracelets.jpg' %}" class="card-img-top" alt="Немає зображення">#}
+{#                            {% endif %}#}
+{#                            <div class="card-body">#}
+{#                                <h5 class="card-title">{{ product.name }}</h5>#}
+{#                                <p class="card-text">{{ product.description|truncatechars:100 }}</p>#}
+{#                                <div class="mt-auto">#}
+{#                                    <p class="product-price">{{ product.get_display_price }}</p>#}
+{#                                    <form action="{% url 'cart_detail' %}" method="post">#}
+{#                                        {% csrf_token %}#}
+{#                                        <div class="d-flex align-items-center">#}
+{#                                            <input type="number" name="quantity" value="1" min="1" class="form-control quantity-input me-2">#}
+{#                                            <button type="submit" class="btn btn-primary btn-add-to-cart flex-grow-1">Додати в кошик</button>#}
+{#                                        </div>#}
+{#                                    </form>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                {% endfor %}#}
+{#            </div>#}
+{#        {% else %}#}
+{#            <div class="alert alert-warning text-center" role="alert">#}
+{#                На жаль, товарів поки немає.#}
+{#            </div>#}
+{#        {% endif %}#}
+{#    </div>#}
+{##}
+{#    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdjK4sL+jWz4zNOCD+3PqP4zF9Gz7Ea7fM1k8KjP9v2zS" crossorigin="anonymous"></script>#}
+{#    <script>#}
+{#        // JS для автоматичного зникнення повідомлень#}
+{#        document.addEventListener('DOMContentLoaded', function() {#}
+{#            const messages = document.querySelectorAll('.messages-container .message');#}
+{#            messages.forEach(message => {#}
+{#                setTimeout(() => {#}
+{#                    message.classList.add('fade-out');#}
+{#                    // Видаляємо елемент з DOM після завершення анімації#}
+{#                    message.addEventListener('transitionend', () => message.remove());#}
+{#                }, 5000); // Повідомлення зникне через 5 секунд#}
+{#            });#}
+{#        });#}
+{#    </script>#}
+{#<div class="row my-4">#}
+{#    <div class="col-md-6">#}
+{#        <img src="{% if product.image %}{{ product.image.url }}{% else %}https://via.placeholder.com/600x400?text=No+Image{% endif %}" class="img-fluid rounded shadow" alt="{{ product.name }}">#}
+{#    </div>#}
+{#    <div class="col-md-6">#}
+{#        <h1 class="mb-3">{{ product.name }}</h1>#}
+{#        <p class="lead product-price">{{ product.price }} грн</p>#}
+{#        <hr>#}
+{#        <h4 class="mb-3">Опис:</h4>#}
+{#        <p>{{ product.description|linebreaksbr }}</p>#}
+{##}
+        {# Форма для додавання в кошик #}
+{#        <form action="{% url 'add_to_cart' product.id %}" method="post" class="mt-4">#}
+{#            {% csrf_token %}#}
+{#            <div class="row align-items-center mb-3">#}
+{#                <div class="col-auto">#}
+{#                    {{ add_to_cart_form.quantity.label_tag }}#}
+{#                </div>#}
+{#                <div class="col-auto">#}
+{#                    {{ add_to_cart_form.quantity }}#}
+{#                </div>#}
+{#                <div class="col-auto">#}
+{#                    <button type="submit" class="btn btn-success btn-lg"><i class="fas fa-cart-plus"></i> Додати в кошик</button>#}
+{#                </div>#}
+{#            </div>#}
+{#            {{ add_to_cart_form.override }}#}
+{#        </form>#}
+{##}
+{#        <div class="mt-4">#}
+{#            <a href="{% url 'product_list' %}" class="btn btn-outline-secondary"><i class="fas fa-arrow-left"></i> Повернутися до каталогу</a>#}
+{#        </div>#}
+{#    </div>#}
+{#</div>#}
+{#</body>#}
+{#</html>#}
+{#{% load static %}#}
+{#{% load i18n %}#}
+{#<!DOCTYPE html>#}
+{#<html lang="uk">#}
+{#<head>#}
+{#    <meta charset="UTF-8">#}
+{#    <meta name="viewport" content="width=device-width, initial-scale=1.0">#}
+{#    <title>{% block title %}Каталог Товарів - SIRIUS{% endblock %}</title>#}
+{#    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" crossorigin="anonymous">#}
+{#    <link rel="stylesheet" href="{% static 'jewelery.css' %}">#}
+{#    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">#}
+{#    <style>#}
+{#        /* CSS залишено без змін (product-card, header, footer, messages і т.д.) */#}
+{##}
+{#    </style>#}
+{#</head>#}
+{#<body>#}
+{#<header>#}
+{#    <div style="text-align: center;">#}
+{#        <h1><p class="custom-text">SIRIUS</p></h1>#}
+{#        <h2><p class="custom-text">Ваше сяйво починається тут</p></h2>#}
+{#    </div>#}
+{#    <h3>#}
+{#        <nav class="footer-nav">#}
+{#            <ul>#}
+{#                <li><a href="{% url 'index' %}">Головна</a></li>#}
+{#                <li><a href="{% url 'product_list' %}">Каталог</a></li>#}
+{#                <li><a href="{% url 'cart_detail' %}">Кошик</a></li>#}
+{#                <li><a href="{% url 'order_create' %}">Замовлення</a></li>#}
+{#                <li><a href="{% url 'user_profile' %}">User</a></li>#}
+{#                <li><a href="{% url 'view3' %}">Про нас</a></li>#}
+{#                <li><a href="{% url 'view4' %}">Necklace</a></li>#}
+{#            </ul>#}
+{#        </nav>#}
+{#    </h3>#}
+{#</header>#}
+{#<div class="messages-container">#}
+{#    {% if messages %}#}
+{#        {% for message in messages %}#}
+{#            <div class="alert alert-{{ message.tags }} message" role="alert">#}
+{#                {{ message }}#}
+{#            </div>#}
+{#        {% endfor %}#}
+{#    {% endif %}#}
+{#</div>#}
+{##}
+{#<div class="container mt-5">#}
+{#    <h1 class="mb-4 text-center">Каталог Товарів</h1>#}
+{#    {% if products %}#}
+{#        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">#}
+{#            {% for product in products %}#}
+{#                <div class="col d-flex">#}
+{#                    <div class="card product-card">#}
+{#                        {% if product.image %}#}
+{#                            <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">#}
+{#                        {% else %}#}
+{#                            <img src="{% static 'img/bracelets.jpg' %}" class="card-img-top" alt="Немає зображення">#}
+{#                        {% endif %}#}
+{#                        <div class="card-body">#}
+{#                            <h5 class="card-title">{{ product.name }}</h5>#}
+{#                            <p class="card-text">{{ product.description|truncatechars:100 }}</p>#}
+{#                            <div class="mt-auto">#}
+{#                                <p class="product-price">{{ product.get_display_price }}</p>#}
+{#                                <form action="{% url 'add_to_cart' product.id %}" method="post">#}
+{#                                    {% csrf_token %}#}
+{#                                    <div class="d-flex align-items-center">#}
+{#                                        <input type="number" name="quantity" value="1" min="1" class="form-control quantity-input me-2">#}
+{#                                        <button type="submit" class="btn btn-primary btn-add-to-cart flex-grow-1">Додати в кошик</button>#}
+{#                                    </div>#}
+{#                                </form>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#            {% endfor %}#}
+{#        </div>#}
+{#    {% else %}#}
+{#        <div class="alert alert-warning text-center" role="alert">#}
+{#            На жаль, товарів поки немає.#}
+{#        </div>#}
+{#    {% endif %}#}
+{#</div>#}
+{##}
+{#<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>#}
+{#<script>#}
+{#    document.addEventListener('DOMContentLoaded', function() {#}
+{#        const messages = document.querySelectorAll('.messages-container .message');#}
+{#        messages.forEach(message => {#}
+{#            setTimeout(() => {#}
+{#                message.classList.add('fade-out');#}
+{#                message.addEventListener('transitionend', () => message.remove());#}
+{#            }, 5000);#}
+{#        });#}
+{#    });#}
+{#</script>#}
+{#</body>#}
+{#</html>#}
+{% load static %}
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Каталог Товарів - SIRIUS{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'jewelery.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* CSS залишено без змін (product-card, header, footer, messages і т.д.) */
+
+    </style>
+</head>
+<body>
+<header>
+        <div style="text-align: center;">
+            <h1>
+            <p class="custom-text">SIRIUS</p>
+            </h1>
+            <h2>
+            <p class="custom-text">Ваше сяйво починається тут</p>
+            </h2>
+        </div>
+<style>
+  .custom-text {
+    font-family: 'Montserrat', serif;
+      color: #FFF0F5;
+  }
+</style>
+
+<h3>
+  <nav class="footer-nav">
+
+    <ul>
+        <li><a href="{% url 'index' %}">Головна</a> </li>
+        <li><a href="{% url 'product_list' %}">Каталог</a></li>
+      <li><a href="{% url 'cart_detail' %}">Кошик</a></li>
+        <li><a href="{% url 'order_create' %}">Замовлення</a></li>
+        <li><a href="{% url 'user_profile' %}">User</a></li>
+        <li><a href="{% url 'view3' %}">Про нас</a></li>
+
+
+
+    </ul>
+
+  </nav>
+</h3>
+
+    </header>
+<div class="messages-container">
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} message" role="alert">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+</div>
+
+<div class="container mt-5">
+    <h1 class="mb-4 text-center">Каталог Товарів</h1>
+    {% if products %}
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            {% for product in products %}
+                <div class="col d-flex">
+                    <div class="card product-card">
+                        {% if product.image %}
+                            <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
+                        {% else %}
+                            <img src="{% static 'img/bracelets.jpg' %}" class="card-img-top" alt="Немає зображення">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">{{ product.name }}</h5>
+                            <p class="card-text">{{ product.description|truncatechars:100 }}</p>
+                            <div class="mt-auto">
+                                <p class="product-price">{{ product.get_display_price }}</p>
+                                <form action="{% url 'add_to_cart' product.id %}" method="post">
+                                    {% csrf_token %}
+                                    <div class="d-flex align-items-center">
+                                        <input type="number" name="quantity" value="1" min="1" class="form-control quantity-input me-2">
+                                        <button type="submit" class="btn btn-primary btn-add-to-cart flex-grow-1">Додати в кошик</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="alert alert-warning text-center" role="alert">
+            На жаль, товарів поки немає.
+        </div>
+    {% endif %}
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const messages = document.querySelectorAll('.messages-container .message');
+        messages.forEach(message => {
+            setTimeout(() => {
+                message.classList.add('fade-out');
+                message.addEventListener('transitionend', () => message.remove());
+            }, 5000);
+        });
+    });
+</script>
+</body>
+</html>
+<style>
+  header {
+    background-color: #cc6699;
+    padding: 15px 20px;
+  }
+
+  nav ul {
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+    display: flex;
+    gap: 40px;
+      justify-content: center;
+      font-family: 'Montserrat', sans-serif;
+
+
+
+  }
+
+
+
+  nav ul li {
+    display: inline;
+  }
+
+  nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bolder;
+  }
+
+  nav ul li a:hover {
+    text-decoration: none;
+        color: #862d59;
+        transform: scale(10);
+  }
+</style>

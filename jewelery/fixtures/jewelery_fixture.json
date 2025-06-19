@@ -1,0 +1,184 @@
+[
+{
+    "model": "jewelery.jewelrycategory",
+    "pk": 1,
+    "fields": {
+        "name": "╤хЁхцъш",
+        "description": ""
+    }
+},
+{
+    "model": "jewelery.jewelrycategory",
+    "pk": 2,
+    "fields": {
+        "name": "┴ЁрёыхЄш",
+        "description": ""
+    }
+},
+{
+    "model": "jewelery.jewelrycategory",
+    "pk": 3,
+    "fields": {
+        "name": "╩юы№║",
+        "description": ""
+    }
+},
+{
+    "model": "jewelery.jewelrycategory",
+    "pk": 4,
+    "fields": {
+        "name": "╩рсыєўъш",
+        "description": ""
+    }
+},
+{
+    "model": "jewelery.jewelryitem",
+    "pk": 1,
+    "fields": {
+        "category": 1,
+        "name": "╤хЁхцъш",
+        "description": "",
+        "material": "gold",
+        "price": "0.11",
+        "weight": -6.0,
+        "gender": "unisex",
+        "in_stock": true,
+        "created_at": "2025-06-13T14:13:18.156Z"
+    }
+},
+{
+    "model": "jewelery.jewelryitem",
+    "pk": 2,
+    "fields": {
+        "category": 2,
+        "name": "Smart&Beatiuful",
+        "description": "┴ЁрёыхЄ ч цютЄюую чюыюЄр ч ъхЁрь│ъю■ Єр ф│рьрэЄюь Smart & Beautiful.",
+        "material": "gold",
+        "price": "12590.00",
+        "weight": 2.19,
+        "gender": "unisex",
+        "in_stock": true,
+        "created_at": "2025-06-17T22:32:36.155Z"
+    }
+},
+{
+    "model": "jewelery.jewelryitem",
+    "pk": 3,
+    "fields": {
+        "category": 2,
+        "name": "╠хуряюы│ё",
+        "description": "┴ЁрёыхЄ ч цютЄюую чюыюЄр ╠хуряюы│ё.",
+        "material": "gold",
+        "price": "31456.00",
+        "weight": 3.88,
+        "gender": "unisex",
+        "in_stock": true,
+        "created_at": "2025-06-17T22:34:29.444Z"
+    }
+},
+{
+    "model": "jewelery.jewelryitem",
+    "pk": 4,
+    "fields": {
+        "category": 2,
+        "name": "Muradova",
+        "description": "┴ЁрёыхЄ ч с│ыюую чюыюЄр ч Ї│рэ│Єрьш Muradova.",
+        "material": "gold",
+        "price": "27891.00",
+        "weight": 3.5944,
+        "gender": "unisex",
+        "in_stock": true,
+        "created_at": "2025-06-17T22:36:38.430Z"
+    }
+},
+{
+    "model": "jewelery.jewelryitem",
+    "pk": 5,
+    "fields": {
+        "category": 3,
+        "name": "The Diamond Times",
+        "description": "╩юы№║ ч с│ыюую чюыюЄр ч ф│рьрэЄрьш The Diamond times.",
+        "material": "gold",
+        "price": "44789.00",
+        "weight": 2.3631,
+        "gender": "unisex",
+        "in_stock": true,
+        "created_at": "2025-06-17T22:38:50.403Z"
+    }
+},
+{
+    "model": "jewelery.jewelryitem",
+    "pk": 6,
+    "fields": {
+        "category": 3,
+        "name": "The HARDKISS",
+        "description": "╩юы№║ ч цютЄюую чюыюЄр THE HARDKISS.",
+        "material": "gold",
+        "price": "31492.00",
+        "weight": 3.4991,
+        "gender": "female",
+        "in_stock": true,
+        "created_at": "2025-06-17T22:41:03.391Z"
+    }
+},
+{
+    "model": "jewelery.jewelryitem",
+    "pk": 7,
+    "fields": {
+        "category": 3,
+        "name": "Delicate",
+        "description": "╩юы№║ ч с│ыюую чюыюЄр ч яхЁырьш Delicate.",
+        "material": "gold",
+        "price": "23391.00",
+        "weight": 3.7577,
+        "gender": "female",
+        "in_stock": true,
+        "created_at": "2025-06-17T22:42:29.605Z"
+    }
+},
+{
+    "model": "jewelery.jewelryitem",
+    "pk": 8,
+    "fields": {
+        "category": 4,
+        "name": "Smart & Beautiful",
+        "description": "╩рсыєўър │ч цютЄюую чюыюЄр ч ъхЁрь│ъю■ Єр ф│рьрэЄрьш Smart & Beautiful.",
+        "material": "gold",
+        "price": "8991.00",
+        "weight": 2.3933,
+        "gender": "unisex",
+        "in_stock": true,
+        "created_at": "2025-06-17T22:44:09.800Z"
+    }
+},
+{
+    "model": "jewelery.jewelryitem",
+    "pk": 9,
+    "fields": {
+        "category": 4,
+        "name": "The Diamond lines.",
+        "description": "╩рсыєўър ч с│ыюую чюыюЄр ч ф│рьрэЄрьш The Diamond lines.",
+        "material": "gold",
+        "price": "132550.00",
+        "weight": 2.5555,
+        "gender": "unisex",
+        "in_stock": true,
+        "created_at": "2025-06-17T22:46:16.281Z"
+    }
+},
+{
+    "model": "jewelery.jewelryitem",
+    "pk": 10,
+    "fields": {
+        "category": 4,
+        "name": "The Diamond lines",
+        "description": "╩рсыєўър ч цютЄюую чюыюЄр ч Єюярчюь The Diamond lines.",
+        "material": "gold",
+        "price": "13891.00",
+        "weight": 2.1367,
+        "gender": "unisex",
+        "in_stock": true,
+        "created_at": "2025-06-17T22:48:17.406Z"
+    }
+}
+]

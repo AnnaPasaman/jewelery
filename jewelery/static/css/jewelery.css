@@ -1,0 +1,181 @@
+body{
+    font-family: 'Montserrat', sans-serif;
+    background: #FFF0F5;
+{% load static %}
+    font-family: 'Roboto', sans-serif;
+    /* Колір тексту та line-height можна встановити в Bootstrap, але тут для контролю */
+    color: #862d59;
+    line-height: 1.6;
+
+
+h1, h2, h3 {
+    font-family: 'Montserrat', sans-serif; /* Montserrat для заголовків */
+    /* Ваги шрифтів, розміри та відступи тепер керуються Bootstrap (fw-bold, mb-*, fs-*) */
+    /* Але якщо ви хочете переписати, то робіть це тут */
+}
+
+/* --- 1. Секція Hero (Герой-банер) --- */
+.hero-section {
+    position: relative;
+    width: 100%;
+    height: 700px; /* Можете налаштувати висоту */
+    overflow: hidden;
+    /* Bootstrap flexbox classes are used in base.html body and index.html hero-content */
+    /* display: flex; align-items: center; justify-content: center; text-align: center; color: #fff; */
+}
+
+.hero-background-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("{% static 'img/background.jpg' %}"); /* <-- Зображення тут */
+    background-size: cover;
+    background-position: center;
+    filter: brightness(0.6); /* Сильніше затемнення */
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2; /* Контент над фоном */
+    max-width: 2000px;
+    /* Bootstrap classes handle padding, rounded-3, shadow-lg, text-white, text-center */
+}
+
+.hero-content h1, .hero-content p {
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.7); /* Тінь для тексту */
+}
+
+/* --- 2. Секція "Про нас" (features-grid) --- */
+.feature-item {
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    /* h-100, shadow-sm, border-0, text-center, card, card-body handled by Bootstrap */
+}
+
+.feature-item:hover {
+    transform: translateY(-8px) scale(1.02); /* Більший підйом та невелике збільшення */
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2) !important; /* !important для перекриття Bootstrap shadow */
+}
+
+.feature-icon {
+    /* fa-3x, text-primary handled by Bootstrap */
+    transition: color 0.3s ease;
+}
+
+.feature-item:hover .feature-icon {
+    color: #0056b3 !important; /* Зміна кольору іконки при наведенні */
+}
+
+/* --- 3. Секція "Популярні Категорії" (category-grid) --- */
+.category-item {
+    height: 300px; /* Збільшимо висоту карток */
+    text-decoration: none;
+    position: relative; /* Для накладання тексту на зображення */
+    overflow: hidden;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    cursor: pointer;
+    /* card, text-white, text-center, g-4 handled by Bootstrap */
+}
+
+.category-item:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25) !important;
+}
+
+.category-item::before { /* Псевдоелемент для затемнення фону при наведенні */
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4); /* Початкове затемнення */
+    transition: background-color 0.4s ease;
+    z-index: 1;
+}
+
+.category-item:hover::before {
+    background-color: rgba(0, 0, 0, 0.6); /* Більше затемнення при наведенні */
+}
+
+.category-item h3 {
+    position: relative;
+    z-index: 2;
+    /* color: #fff; font-size: 2em; fw-bold handled by Bootstrap */
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);
+    margin: 0; /* Прибираємо стандартні відступи h3 */
+}
+
+/* Фонове зображення для кожної категорії */
+.category-bracelets { background-image: url("{% static 'images/category_bracelets.jpg' %}"); background-size: cover; background-position: center; }
+.category-rings { background-image: url("{% static 'images/category_rings.jpg' %}"); background-size: cover; background-position: center; }
+.category-necklace { background-image: url("{% static 'images/category_necklace.jpg' %}"); background-size: cover; background-position: center; }
+.category-earrings { background-image: url("{% static 'images/category_earrings.jpg' %}"); background-size: cover; background-position: center; }
+
+
+/* --- 4. Секція "Відгуки Клієнтів" --- */
+.testimonial-item {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    /* h-100, shadow-sm, border-0, card, card-body handled by Bootstrap */
+}
+
+.testimonial-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15) !important;
+}
+
+.testimonial-item p {
+    /* fst-italic, mb-3 handled by Bootstrap */
+}
+
+.blockquote-footer cite {
+    /* text-primary, fw-bold handled by Bootstrap */
+}
+
+/* --- 5. Секція "Заклик до дії" (CTA) --- */
+.cta-section {
+    background-image: linear-gradient(135deg, #1a2a4b 0%, #004d80 100%); /* Градієнт */
+    /* py-5, bg-dark, text-white handled by Bootstrap */
+}
+
+/* --- Адаптивність (медіа-запити) --- */
+/* Bootstrap в основному керує адаптивністю через свою сіткову систему
+   row-cols-*, тому ручні медіа-запити для макету потрібні рідше.
+   Можете додати їх для тонкого налаштування, якщо потрібно. */
+
+@media (max-width: 992px) {
+    .hero-section { height: 550px; }
+    .hero-content h1 { font-size: 3.5em !important; } /* !important для перекриття Bootstrap */
+    .hero-content p { font-size: 1.4em !important; }
+}
+
+@media (max-width: 768px) {
+    .hero-section { height: 450px; }
+    .hero-content h1 { font-size: 2.8em !important; }
+    .hero-content p { font-size: 1.2em !important; }
+
+    /* Bootstrap керує row-cols-1 для малих екранів */
+}
+
+@media (max-width: 576px) {
+    .hero-section { height: 380px; }
+    .hero-content h1 { font-size: 2.2em !important; }
+    .hero-content p { font-size: 1em !important; }
+
+    .category-item { height: 200px; }
+.category-bracelets {
+    background-image: url('/media/bracelet.jpg'); /* або /static/ якщо з static */
+    background-size: cover;
+    background-position: center;
+    height: 300px; /* або інша висота */
+    border-radius: 10px;
+}
+
+}
+
+
+
+
+

@@ -1,11 +1,180 @@
-<!DOCTYPE html>
-<html lang="uk">
-<head>
-    <meta charset="UTF-8">
-    <title>{{ title }}</title>
-</head>
-<body>
-    <h1>{{ title }}</h1>
-    <a href="{% url 'index' %}">На головну</a>
-</body>
-</html>
+
+
+{% extends 'jewelery/layout.html' %} }
+
+{% block title %}Оформлення Замовлення - SIRIUS{% endblock %}
+
+{% block content %}
+<div class="container order-create-container mt-5">
+    <h1 class="mb-4 text-center">Оформлення Замовлення</h1>
+
+    <div class="row">
+        <div class="col-md-8">
+            <h3 class="mb-3 order-section-title">Ваші дані</h3>
+            <form method="post" novalidate>
+                {% csrf_token %}
+                {% for field in form %}
+                    <div class="mb-3">
+                        {{ field.label_tag }}
+                        {{ field }}
+                        {% if field.help_text %}
+                            <div class="form-text">{{ field.help_text }}</div>
+                        {% endif %}
+                        {% for error in field.errors %}
+                            <div class="invalid-feedback d-block">{{ error }}</div>
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+                <button type="submit" class="btn btn-primary btn-lg mt-3">Підтвердити замовлення</button>
+            </form>
+        </div>
+        <div class="col-md-4">
+            <h3 class="mb-3 order-section-title">Ваше замовлення</h3>
+            <div class="card shadow-sm order-summary-card">
+                <div class="card-body">
+                    {% if cart_items %} {# Це має бути 'cart_items' або 'cart' #}
+                        <ul class="list-group list-group-flush">
+                            {% for item in cart_items %}
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <span class="product-name-summary">{{ item.product.name }}</span>
+                                    <span class="badge bg-primary rounded-pill">{{ item.quantity }}</span>
+                                    <span>{{ item.get_cost|floatformat:2 }} грн</span>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                        <div class="card-footer text-end fw-bold fs-5 order-total-summary">
+                            Загальна сума: {{ total_price|floatformat:2 }} грн {# Це має бути 'total_price' або 'cart.get_total_price' #}
+                        </div>
+                    {% else %}
+                        <p class="text-center text-danger">Ваш кошик порожній. Будь ласка, додайте товари до оформлення замовлення.</p>
+                        <a href="{% url 'product_list' %}" class="btn btn-secondary w-100 mt-3">Повернутись до покупок</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <style>
+
+.order-create-container {
+    padding-top: 40px;
+    padding-bottom: 60px;
+    background-color: #fcf8f9; /* Той самий світлий фон */
+    font-family: 'Montserrat', sans-serif;
+    min-height: calc(100vh - 180px); /* Для футера */
+}
+
+.order-create-container h1 {
+    color: #cc6699;
+    font-weight: 700;
+    margin-bottom: 40px;
+}
+
+.order-create-container .order-section-title {
+    color: #862d59; /* Колір для заголовків секцій "Ваші дані" та "Ваше замовлення" */
+    font-weight: 600;
+    margin-bottom: 25px;
+}
+
+/* Стилі для форми оформлення замовлення */
+.order-create-container form .mb-3 {
+    margin-bottom: 1.5rem; /* Збільшений відступ між полями форми */
+}
+
+.order-create-container form label {
+    font-weight: 600;
+    color: #555;
+    margin-bottom: 5px;
+    display: block; /* Щоб label був на окремому рядку */
+}
+
+.order-create-container form .form-control {
+    border-color: #e0c2d1;
+    border-radius: 5px;
+    padding: 10px 15px;
+}
+
+.order-create-container form .form-control:focus {
+    border-color: #cc6699;
+    box-shadow: 0 0 0 0.25rem rgba(204, 102, 153, 0.25);
+}
+
+.order-create-container .invalid-feedback {
+    font-size: 0.875em;
+    color: #dc3545;
+}
+
+/* Стилі для кнопки підтвердження замовлення */
+.order-create-container .btn-primary {
+    background-color: #cc6699;
+    border-color: #cc6699;
+    font-weight: bold;
+    padding: 12px 25px;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.order-create-container .btn-primary:hover {
+    background-color: #862d59;
+    border-color: #862d59;
+}
+
+/* Стилі для картки з підсумком замовлення */
+.order-create-container .order-summary-card {
+    border: 1px solid #e0c2d1;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); /* М'яка тінь */
+}
+
+.order-create-container .order-summary-card .card-body {
+    padding: 25px;
+}
+
+.order-create-container .list-group-item {
+    font-size: 1.05rem;
+    padding: 12px 0; /* Відступ для елементів списку */
+    border-color: #eee;
+}
+
+.order-create-container .list-group-item:last-child {
+    border-bottom: none;
+}
+
+.order-create-container .product-name-summary {
+    color: #343a40;
+    font-weight: 500;
+}
+
+.order-create-container .badge.bg-primary {
+    background-color: #cc6699 !important; /* Щоб колір бейджа відповідав бренду */
+    font-weight: 600;
+}
+
+.order-create-container .order-total-summary {
+    padding-top: 20px;
+    margin-top: 15px;
+    border-top: 1px dashed #e0c2d1; /* Пунктирна лінія перед сумою */
+    color: #862d59;
+}
+
+/* Стилі для порожнього кошика на сторінці замовлення */
+.order-create-container .text-danger {
+    color: #dc3545 !important;
+    font-weight: 500;
+}
+
+.order-create-container .btn-secondary {
+    background-color: #6c757d;
+    border-color: #6c757d;
+    color: white;
+    font-weight: bold;
+}
+.order-create-container .btn-secondary:hover {
+    background-color: #5a6268;
+    border-color: #545b62;
+}
+</style>
+{% endblock %}
+
+
+

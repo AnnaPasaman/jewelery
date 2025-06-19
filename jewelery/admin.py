@@ -6,11 +6,16 @@ class JewelryCategoryAdmin(admin.ModelAdmin):
     list_display = ('name', 'description')
 
 
+
 @admin.register(JewelryItem)
 class JewelryItemAdmin(admin.ModelAdmin):
     list_display = ('name', 'category', 'price', 'material', 'in_stock')
     list_filter = ('material', 'category', 'in_stock', 'gender')
-    search_fields = ('name', 'description')
+    search_fields = ('description','name')
+
+
+
+
 
 
 from django.contrib import admin

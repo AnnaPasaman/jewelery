@@ -1,17 +1,133 @@
-<!DOCTYPE html>
-<html lang="uk">
-<head>
-    <meta charset="UTF-8">
-    <title>{{ title }}</title>
-</head>
-<body>
-    <h1>{{ title }}</h1>
-    <ul>
-        <li><a href="{% url 'view1' %}">Перейти на Сторінку 1</a></li>
-        <li><a href="{% url 'view2' %}">Перейти на Сторінку 2</a></li>
-        <li><a href="{% url 'view3' %}">Перейти на Сторінку 3</a></li>
-        <li><a href="{% url 'view4' %}">Перейти на Сторінку 4</a></li>
-        <li><a href="{% url 'view5' %}">Перейти на Сторінку 5</a></li>
-    </ul>
-</body>
-</html>
+{% extends 'jewelery/layout.html' %}
+
+{% block title %}Sirius{% endblock %}
+
+{% block content %}
+
+    {# --- 1. Секція Hero (Герой-банер) --- #}
+    <section class="hero-section">
+        <div class="hero-background-image"></div>
+        <div class="hero-content text-white text-center p-4 rounded-3 shadow-lg"> {# Bootstrap classes #}
+            <h1 class="display-3 fw-bold mb-3">Відкрийте Сяйво Ваших Мрій</h1> {# display-3, fw-bold for large, bold text #}
+            <p class="lead mb-4">Ексклюзивні ювелірні вироби, що розкажуть Вашу історію.</p> {# lead for larger paragraph #}
+            <a href="{% url 'product_list' %}" class="btn btn-primary btn-lg rounded-pill px-5 py-3">Перейти до колекції</a> {# btn-lg for large button, rounded-pill for pill shape #}
+        </div>
+    </section>
+
+    {# --- 2. Секція "Про нас" або "Наші Цінності" --- #}
+    <section class="py-5 bg-light about-us-section"> {# py-5 for padding-y, bg-light for light background #}
+        <div class="container">
+            <h2 class="mb-5 text-center fw-bold">Чому обирають нас?</h2>
+            <div class="row row-cols-1 row-cols-md-3 g-4"> {# Bootstrap grid: 1 col on small, 3 on medium and up, g-4 for gap #}
+                <div class="col">
+                    <div class="card h-100 shadow-sm border-0 text-center feature-item"> {# Card component, h-100 for equal height, shadow-sm #}
+                        <div class="card-body">
+                            <i class="fas fa-gem fa-3x mb-3 text-primary"></i> {# fa-3x for icon size, text-primary for blue #}
+                            <h3 class="card-title fs-4 fw-bold">Виняткова Якість</h3> {# fs-4 for font-size #}
+                            <p class="card-text text-muted">Тільки найкращі матеріали та бездоганна робота ювелірів.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card h-100 shadow-sm border-0 text-center feature-item">
+                        <div class="card-body">
+                            <i class="fas fa-heart fa-3x mb-3 text-primary"></i>
+                            <h3 class="card-title fs-4 fw-bold">Індивідуальний Підхід</h3>
+                            <p class="card-text text-muted">Допоможемо підібрати ідеальну прикрасу для кожного особливого моменту.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card h-100 shadow-sm border-0 text-center feature-item">
+                        <div class="card-body">
+                            <i class="fas fa-shield-alt fa-3x mb-3 text-primary"></i>
+                            <h3 class="card-title fs-4 fw-bold">Гарантія Довіри</h3>
+                            <p class="card-text text-muted">Сертифіковані вироби та надійна репутація, перевірена часом.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {# --- 3. Секція "Популярні Категорії" --- #}
+    <section class="py-5 bg-info bg-opacity-10 categories-section"> {# bg-info for light blue, bg-opacity-10 for transparency #}
+        <div class="container">
+            <h2 class="mb-5 text-center fw-bold">Досліджуйте Наші Колекції</h2>
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-4"> {# Bootstrap grid: 1 on small, 2 on sm, 4 on lg #}
+                <div class="col">
+                    <a href="{% url 'view3' %}" class="card text-white text-center category-item category-bracelets">
+                        <div class="card-img-overlay d-flex align-items-center justify-content-center p-3"> {# d-flex, align-items-center, justify-content-center to center content #}
+                            <h3 class="card-title fw-bold fs-3 text-shadow">Браслети</h3> {# fs-3 for larger font #}
+                        </div>
+                    </a>
+                </div>
+                <div class="col">
+                    <a href="{% url 'view4' %}" class="card text-white text-center category-item category-rings">
+                        <div class="card-img-overlay d-flex align-items-center justify-content-center p-3">
+                            <h3 class="card-title fw-bold fs-3 text-shadow">Каблучки</h3>
+                        </div>
+                    </a>
+                </div>
+                <div class="col">
+                    <a href="{% url 'user_profile' %}" class="card text-white text-center category-item category-necklace">
+                        <div class="card-img-overlay d-flex align-items-center justify-content-center p-3">
+                            <h3 class="card-title fw-bold fs-3 text-shadow">Намиста</h3>
+                        </div>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    {# --- 4. Секція "Відгуки Клієнтів" --- #}
+    <section class="py-5 bg-white testimonials-section">
+        <div class="container">
+            <h2 class="mb-5 text-center fw-bold">Що кажуть наші клієнти</h2>
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4"> {# Grid for testimonials #}
+                <div class="col">
+                    <div class="card h-100 shadow-sm border-0 testimonial-item">
+                        <div class="card-body">
+                            <p class="card-text fst-italic mb-3">"Якість прикрас перевершила всі мої очікування! Просто неймовірно. Дуже задоволена."</p>
+                            <footer class="blockquote-footer text-end"><cite title="Source Title" class="text-primary fw-bold">Олена, Київ</cite></footer>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card h-100 shadow-sm border-0 testimonial-item">
+                        <div class="card-body">
+                            <p class="card-text fst-italic mb-3">"Швидка доставка та прекрасний сервіс. Моя каблучка просто ідеальна! Буду замовляти ще."</p>
+                            <footer class="blockquote-footer text-end"><cite title="Source Title" class="text-primary fw-bold">Максим, Львів</cite></footer>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card h-100 shadow-sm border-0 testimonial-item">
+                        <div class="card-body">
+                            <p class="card-text fst-italic mb-3">"Дякую за таку красу! Ваші прикраси завжди викликають захоплення і компліменти."</p>
+                            <footer class="blockquote-footer text-end"><cite title="Source Title" class="text-primary fw-bold">Дарина, Одеса</cite></footer>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {# --- 5. Секція "Заклик до дії" або "Підписка на розсилку" --- #}
+    <section class="py-5 bg-dark text-white cta-section">
+        <div class="container">
+            <h2 class="mb-4 text-center fw-bold text-white">Не пропустіть новинки та спеціальні пропозиції!</h2>
+            <p class="lead mb-4 text-center text-white-50">Підпишіться на нашу розсилку та отримайте ексклюзивні знижки та першими дізнавайтеся про акції.</p>
+            <form action="#" method="post" class="row g-3 justify-content-center"> {# Bootstrap grid for form #}
+                <div class="col-12 col-md-6 col-lg-4">
+                    <input type="email" name="email" placeholder="Ваша електронна пошта" required class="form-control form-control-lg rounded-pill px-4"> {# form-control, form-control-lg #}
+                </div>
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-success btn-lg rounded-pill px-5 py-3">Підписатися</button> {# btn-success for green button #}
+                </div>
+            </form>
+        </div>
+    </section>
+
+{% endblock content %}

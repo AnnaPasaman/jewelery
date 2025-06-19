@@ -1,11 +1,174 @@
-<!DOCTYPE html>
-<html lang="uk">
-<head>
-    <meta charset="UTF-8">
-    <title>{{ title }}</title>
-</head>
-<body>
-    <h1>{{ title }}</h1>
-    <a href="{% url 'index' %}">На головну</a>
-</body>
-</html>
+{# templates/jewelery/about_us.html #}
+{% extends 'jewelery/layout.html' %} {# Успадковуємо від вашого layout.html #}
+
+{% block title %}Про нас - SIRIUS{% endblock %} {# Встановлюємо заголовок сторінки #}
+
+{% block content %} {# Починаємо блок контенту #}
+    <div class="container mt-5">
+        <h1 class="mb-4 text-center">Про компанію SIRIUS</h1>
+
+        <div class="row mt-4">
+            <div class="col-md-8 offset-md-2">
+                <p class="lead text-center">
+                    Ми — SIRIUS, ваш надійний партнер у світі елегантних та вишуканих ювелірних виробів.
+                    Наша місія — допомагати вам знаходити та створювати прикраси, які відображають вашу унікальність
+                    та стають частиною вашої особистої історії.
+                </p>
+                <hr class="my-5">
+
+                <h2 class="mb-4 text-center">Наша історія</h2>
+                <p>
+                    Компанія SIRIUS була заснована у [Рік Заснування] з пристрастю до майстерності
+                    та бажанням принести красу та блиск у життя наших клієнтів. З перших днів ми прагнемо
+                    до досконалості у кожній деталі, від вибору найякісніших матеріалів до філігранної роботи
+                    наших ювелірів. Ми пройшли шлях від невеликої майстерні до відомого бренду,
+                    який цінують за бездоганну якість та неповторний дизайн.
+                </p>
+
+                <h2 class="mb-4 text-center mt-5">Наші цінності</h2>
+                <div class="row row-cols-1 row-cols-md-3 g-4 text-center">
+                    <div class="col">
+                        <div class="card h-100 shadow-sm border-0">
+                            <div class="card-body">
+                                <i class="fas fa-gem fa-3x mb-3 text-primary"></i> {# Потрібен Font Awesome #}
+                                <h5 class="card-title">Якість</h5>
+                                <p class="card-text">Ми використовуємо тільки найкращі дорогоцінні метали та каміння.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card h-100 shadow-sm border-0">
+                            <div class="card-body">
+                                <i class="fas fa-hand-sparkles fa-3x mb-3 text-primary"></i> {# Потрібен Font Awesome #}
+                                <h5 class="card-title">Майстерність</h5>
+                                <p class="card-text">Кожен виріб — це результат багаторічного досвіду наших майстрів.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card h-100 shadow-sm border-0">
+                            <div class="card-body">
+                                <i class="fas fa-leaf fa-3x mb-3 text-primary"></i> {# Потрібен Font Awesome #}
+                                <h5 class="card-title">Етичність</h5>
+                                <p class="card-text">Ми дотримуємося високих стандартів етики у всіх аспектах бізнесу.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h2 class="mb-4 text-center mt-5">Наша команда</h2>
+                <p>
+                    За SIRIUS стоїть команда талановитих дизайнерів, досвідчених ювелірів та
+                    відданих менеджерів, які працюють разом, щоб забезпечити вам винятковий досвід
+                    від вибору до придбання вашої ідеальної прикраси. Ми віримо, що кожна деталь має значення.
+                </p>
+                <p class="text-center mt-4">
+                    Дякуємо, що обираєте SIRIUS. Ми сподіваємося, що наші прикраси принесуть вам радість
+                    та залишаться з вами на довгі роки.
+                </p>
+            </div>
+        </div>
+    </div>
+{% endblock %} {# Закінчуємо блок контенту #}
+/* Додайте ці стилі до вашого тегу <style> у templates/jewelery/layout.html */
+/* АБО до вашого файлу CSS (наприклад, static/jewelery/css/style.css), якщо ви його використовуєте */
+
+/* Стилі для Font Awesome іконок (переконайтеся, що ви підключили CDN у <head> layout.html) */
+/* <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> */
+
+/* Стилі для загальної структури сторінки "Про нас" */
+.about-us-container {
+    padding-top: 50px; /* Відступ зверху */
+    padding-bottom: 50px; /* Відступ знизу */
+    background-color: #fcf8f9; /* Дуже світлий рожевий/сірий фон для секції, схожий на #FFF0F5 */
+    color: #343a40; /* Темний колір тексту для основного контенту */
+    font-family: 'Montserrat', sans-serif; /* Використання шрифту Montserrat */
+}
+
+.about-us-container h1, .about-us-container h2 {
+    color: #cc6699; /* Основний колір бренду для заголовків */
+    font-weight: 700; /* Жирний шрифт */
+    margin-bottom: 30px;
+}
+
+.about-us-container h1 {
+    font-size: 2.8rem; /* Більший розмір для головного заголовка */
+    margin-bottom: 40px;
+}
+
+.about-us-container h2 {
+    font-size: 2rem;
+    margin-top: 40px; /* Відступ зверху для підзаголовків */
+}
+
+.about-us-container p {
+    font-size: 1rem;
+    line-height: 1.7;
+    margin-bottom: 15px;
+}
+
+.about-us-container p.lead {
+    font-size: 1.15rem; /* Збільшений розмір для вступного параграфа */
+    font-weight: 500;
+    color: #555;
+}
+
+/* Стилі для розділювальної лінії */
+.about-us-container hr {
+    border-top: 2px solid #cc6699; /* Товста лінія в колір бренду */
+    width: 60px; /* Коротка лінія */
+    margin: 40px auto; /* Центрування */
+    opacity: 0.7;
+}
+
+/* Стилі для карток (блоків з цінностями) */
+.about-us-container .card {
+    border: 1px solid #e0c2d1; /* Легка облямівка, що гармонує з #cc6699 */
+    border-radius: 8px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 100%; /* Гарантує, що картки однакової висоти в рядку */
+}
+
+.about-us-container .card:hover {
+    transform: translateY(-5px); /* Ефект підняття при наведенні */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); /* М'яка тінь */
+}
+
+.about-us-container .card-body {
+    padding: 25px;
+    text-align: center;
+}
+
+.about-us-container .card-title {
+    color: #cc6699; /* Колір заголовка картки */
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-top: 15px;
+}
+
+.about-us-container .card-text {
+    color: #6c757d;
+}
+
+/* Стилі для іконок у картках */
+.about-us-container .fa-3x {
+    color: #cc6699; /* Колір іконок */
+    margin-bottom: 15px;
+}
+
+/* Додатковий стиль для абзаців у нижній частині */
+.about-us-container .text-center.mt-4 {
+    margin-top: 30px;
+    font-style: italic;
+    color: #777;
+}
+
+/* Виправлення transform: scale(10) на hover для nav ul li a:hover */
+/* Цей стиль був у вашому початковому CSS і може викликати проблеми */
+nav ul li a:hover {
+    text-decoration: none;
+    color: #862d59;
+    /* transform: scale(10); - ВИДАЛИТИ АБО ЗМІНИТИ НА БІЛЬШ РЕАЛІСТИЧНЕ ЗНАЧЕННЯ */
+    transform: scale(1.05); /* Легке збільшення, якщо потрібен ефект */
+}
+
